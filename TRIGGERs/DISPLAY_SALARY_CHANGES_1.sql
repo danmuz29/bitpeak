@@ -1,0 +1,14 @@
+--
+-- Trigger "DISPLAY_SALARY_CHANGES_1"
+--
+CREATE OR REPLACE EDITIONABLE TRIGGER "ADMIN"."DISPLAY_SALARY_CHANGES_1" 
+BEFORE DELETE OR INSERT OR UPDATE ON PERSONS 
+FOR EACH ROW 
+ WHEN (NEW.PERSON_ID > 0) DECLARE 
+   sal_diff number; 
+BEGIN 
+   sal_diff := :NEW.salary  - :OLD.salary; 
+   dbms_output.put_line('Salary difference: ' || sal_diff); 
+END;
+ALTER TRIGGER "ADMIN"."DISPLAY_SALARY_CHANGES_1" ENABLE
+/
